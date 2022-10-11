@@ -21,5 +21,6 @@ CREATE TABLE IF NOT EXISTS friends (
     f1_user_id  INT REFERENCES users(id),
     f2_user_id  INT REFERENCES users(id),
     f1_approved BOOLEAN,
-    f2_approved BOOLEAN
+    f2_approved BOOLEAN,
+    PRIMARY KEY(f1_user_id, f2_user_id)
 );

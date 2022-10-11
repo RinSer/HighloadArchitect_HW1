@@ -74,6 +74,45 @@ def profile(user_id):
         return "ok", 200
 
 
+@app.route("/friends/<user_id>", methods = ['GET', 'POST'])
+def friends(user_id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute('''
+            SELECT 
+                u.login,
+                COALESCE(f1.f1_user_id, f2.f2_user_id)
+            FROM users u
+            LEFT JOIN friends f1 ON f1.f1_user_id = u.id
+            LEFT JOIN friends f2 ON f2.f2_user_id = u.id
+            WHERE (f2.f1_user_id = %s AND f2.f1_approved)
+                OR (f1.f2_user_id = %s AND f1.f2_approved)''',\
+                [user_id, user_id])
+        friends = cursor.fetchall()
+        cursor.close()
+        return [{"id": f[1], "login": f[0]} for f in friends], 200
+    if request.method == 'POST':
+        data = request.get_json()
+        cursor = mysql.connection.cursor()
+        cursor.execute('''SELECT COUNT(1) FROM friends
+            WHERE f1_user_id = %s AND f2_user_id = %s''',\
+                [data["userId"], user_id])
+        friend_request = cursor.fetchone()
+        if friend_request[0] == 0: # add friends request from user_id
+            cursor.execute('''
+                INSERT INTO
+                    friends(f1_user_id, f2_user_id, f1_approved, f2_approved) 
+                VALUES(%s,%s,%s,%s)''', (user_id, data["userId"], True, False))
+        else: # approve friends request by user_id
+            cursor.execute('''
+                UPDATE friends SET f2_approved = true
+                WHERE f1_user_id = %s AND f2_user_id = %s''',\
+                    [data["userId"], user_id])
+        mysql.connection.commit()
+        cursor.close()
+        return "ok", 200
+
+
 @app.route("/run_migration")
 def run_migration():
     cursor = mysql.connection.cursor()
