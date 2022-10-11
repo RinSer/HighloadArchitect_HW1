@@ -6,4 +6,4 @@
 4) Выполнить в текущей директории CLI команду `flask --app api run` для локального запуска приложения (порт 5000).
 5) Сделать запрос на `http://localhost:5000/run_migration` для создания схемы данных в базе.
 
-`py -3 -m  pipreqs.pipreqs --force`
+Обновить requirements.txt: `py -3 -m  pipreqs.pipreqs --force`

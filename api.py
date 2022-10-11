@@ -44,6 +44,36 @@ def login():
             return "", 401
 
 
+@app.route("/profile/<user_id>", methods = ['GET', 'POST'])
+def profile(user_id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute('''SELECT 
+                name, 
+                surname,
+                age,
+                gender,
+                interests,
+                city
+            FROM profiles WHERE user_id = %s''', [user_id])
+        profile = cursor.fetchone()
+        cursor.close()
+        return { "name": profile[0], "surname": profile[1],
+            "age": profile[2], "gender": profile[3],
+            "interests": profile[4], "city": profile[5] }, 200
+    if request.method == 'POST':
+        data = request.get_json()
+        cursor = mysql.connection.cursor()
+        cursor.execute('''INSERT INTO 
+            profiles(user_id, name, surname, age, gender, interests, city) 
+            VALUES(%s,%s,%s,%s,%s,%s,%s)''',\
+            (user_id, data["name"], data["surname"], data["age"],\
+            data["gender"], data["interests"], data["city"]))
+        mysql.connection.commit()
+        cursor.close()
+        return "ok", 200
+
+
 @app.route("/run_migration")
 def run_migration():
     cursor = mysql.connection.cursor()
