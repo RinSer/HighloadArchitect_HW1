@@ -1,8 +1,10 @@
 CREATE TABLE IF NOT EXISTS users (
     id           SERIAL PRIMARY KEY,
     login        VARCHAR(10),
-    password     VARCHAR(10)
+    password     VARCHAR(100)
 );
+
+CREATE UNIQUE INDEX users_login ON users(login);
 
 CREATE TABLE IF NOT EXISTS profiles (
     id            SERIAL PRIMARY KEY,
