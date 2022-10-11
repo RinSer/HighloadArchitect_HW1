@@ -1,0 +1,208 @@
+{
+	"info": {
+		"name": "Highload_Architect_HW1",
+		"_postman_id": "000a3546-6910-62b6-59fb-a2120cad75e1",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Run initial migration",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/run_migration",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"run_migration"
+					]
+				},
+				"description": "Run initial migration to create db schema"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "Register a new user with login and password"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Login a created user positive case (good password)"
+			},
+			"response": []
+		},
+		{
+			"name": "Do not login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset0\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Login a created user negative case (bad password)"
+			},
+			"response": []
+		},
+		{
+			"name": "Create user's profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\t\"name\": \"John\",\r\n\t\"surname\": \"Doe\",\r\n    \"age\": 100, \r\n    \"gender\": true,\r\n    \"interests\": \"making purposeless APIs\",\r\n    \"city\": \"London\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/profile/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"profile",
+						"1"
+					]
+				},
+				"description": "Add profile for the created user"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch the created profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\t\"name\": \"John\",\r\n\t\"surname\": \"Doe\",\r\n    \"age\": 100, \r\n    \"gender\": true,\r\n    \"interests\": \"making purposeless APIs\",\r\n    \"city\": \"London\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/profile/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"profile",
+						"1"
+					]
+				},
+				"description": "Load the user's profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Register another user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"friend\",\n\t\"password\": \"dneirf\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "Register second user to make friends"
+			},
+			"response": []
+		}
+	]
+}
