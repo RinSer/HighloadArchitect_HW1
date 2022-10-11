@@ -1,9 +1,9 @@
 {
 	"info": {
+		"_postman_id": "56044455-cc11-4b55-ac5a-a1d8020ba8e1",
 		"name": "Highload_Architect_HW1",
-		"_postman_id": "000a3546-6910-62b6-59fb-a2120cad75e1",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2913540"
 	},
 	"item": [
 		{
@@ -13,13 +13,10 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
-				},
 				"url": {
 					"raw": "localhost:5000/run_migration",
 					"host": [
@@ -46,7 +43,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
+					"raw": "{\n\t\"login\": \"user1\",\n\t\"password\": \"tset\"\n}"
 				},
 				"url": {
 					"raw": "localhost:5000/register",
@@ -74,7 +71,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset\"\n}"
+					"raw": "{\n\t\"login\": \"user1\",\n\t\"password\": \"tset\"\n}"
 				},
 				"url": {
 					"raw": "localhost:5000/login",
@@ -102,7 +99,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"login\": \"test\",\n\t\"password\": \"tset0\"\n}"
+					"raw": "{\n\t\"login\": \"user1\",\n\t\"password\": \"tset0\"\n}"
 				},
 				"url": {
 					"raw": "localhost:5000/login",
@@ -157,10 +154,6 @@
 						"value": "application/json"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n\t\"name\": \"John\",\r\n\t\"surname\": \"Doe\",\r\n    \"age\": 100, \r\n    \"gender\": true,\r\n    \"interests\": \"making purposeless APIs\",\r\n    \"city\": \"London\"\r\n}"
-				},
 				"url": {
 					"raw": "localhost:5000/profile/1",
 					"host": [
@@ -188,7 +181,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"login\": \"friend\",\n\t\"password\": \"dneirf\"\n}"
+					"raw": "{\n\t\"login\": \"user2\",\n\t\"password\": \"dneirf\"\n}"
 				},
 				"url": {
 					"raw": "localhost:5000/register",
@@ -201,6 +194,160 @@
 					]
 				},
 				"description": "Register second user to make friends"
+			},
+			"response": []
+		},
+		{
+			"name": "Make a friend request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": 2\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/friends/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"friends",
+						"1"
+					]
+				},
+				"description": "Friend request from user1 to user2"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the first user's friends list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/friends/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"friends",
+						"1"
+					]
+				},
+				"description": "Should contain the second user data though the second user has not approved the request"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the second user's friends list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/friends/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"friends",
+						"2"
+					]
+				},
+				"description": "Should be empty as the second user has not approved the friend request"
+			},
+			"response": []
+		},
+		{
+			"name": "Approve a friend request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/friends/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"friends",
+						"2"
+					]
+				},
+				"description": "Approve by the second user first user's friend request"
+			},
+			"response": []
+		},
+		{
+			"name": "Get the second user's friends list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/friends/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"friends",
+						"2"
+					]
+				},
+				"description": "Should contain the first user's data as the second user has approved friend request"
 			},
 			"response": []
 		}
