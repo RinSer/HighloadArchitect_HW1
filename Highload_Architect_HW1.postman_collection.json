@@ -60,34 +60,6 @@
 			"response": []
 		},
 		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"login\": \"user1\",\n\t\"password\": \"tset\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/login",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"login"
-					]
-				},
-				"description": "Login a created user positive case (good password)"
-			},
-			"response": []
-		},
-		{
 			"name": "Do not login",
 			"request": {
 				"method": "POST",
@@ -112,6 +84,34 @@
 					]
 				},
 				"description": "Login a created user negative case (bad password)"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"user1\",\n\t\"password\": \"tset\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Login a created user positive case (good password)"
 			},
 			"response": []
 		},
@@ -259,7 +259,34 @@
 			"response": []
 		},
 		{
-			"name": "Get the second user's friends list",
+			"name": "Login second user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"user2\",\n\t\"password\": \"dneirf\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the second user's friends list (should be empty)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -286,7 +313,7 @@
 						"2"
 					]
 				},
-				"description": "Should be empty as the second user has not approved the friend request"
+				"description": "Should contain the first user's data as the second user has approved friend request"
 			},
 			"response": []
 		},
